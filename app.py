@@ -5,9 +5,13 @@ import os
 from PIL import Image
 import yagmail
 from keras.models import load_model
-face = cv2.CascadeClassifier(cv2.data.haarcascades + 'haar cascade files\haarcascade_frontalface_alt.xml')
-leye = cv2.CascadeClassifier(cv2.data.haarcascades + 'haar cascade files\haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier(cv2.data.haarcascades + 'haar cascade files\haarcascade_righteye_2splits.xml')
+
+fc=os.path.dirname(cv2.__file__)+"/data/haarcascade_frontalface_alt.xml"
+lc=os.path.dirname(cv2.__file__)+"/data/haarcascade_lefteye_2splits.xml"
+rc=os.path.dirname(cv2.__file__)+"/data/haarcascade_righteye_2splits.xml"
+face = cv2.CascadeClassifier(fc)
+leye = cv2.CascadeClassifier(lc)
+reye = cv2.CascadeClassifier(rc)
 lbl = ['Close', 'Open']
 model = load_model('models/cnncat2.h5')
 path = os.getcwd()
