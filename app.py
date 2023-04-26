@@ -5,11 +5,14 @@ import os
 from PIL import Image
 import yagmail
 from keras.models import load_model
-face = cv2.CascadeClassifier('haar cascade files\haarcascade_frontalface_alt.xml')
-leye = cv2.CascadeClassifier('haar cascade files\haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier('haar cascade files\haarcascade_righteye_2splits.xml')
+fc=os.path.dirname(cv2.__file__)+"/data/haarcascade_frontalface_alt.xml"
+lc=os.path.dirname(cv2.__file__)+"/data/haarcascade_lefteye_2splits.xml"
+rc=os.path.dirname(cv2.__file__)+"/data/haarcascade_righteye_2splits.xml"
+face = cv2.CascadeClassifier(fc)
+leye = cv2.CascadeClassifier(lc)
+reye = cv2.CascadeClassifier(rc)
 lbl = ['Close', 'Open']
-model = load_model('models/cnncat2.h5')
+model = load_model('models/cnnCat2.h5')
 path = os.getcwd()
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
 rpred = [99]
@@ -68,15 +71,22 @@ def main():
     st.title("Sleepiness Checker")
     html_temp="""
     <body style="background-color:red;">
-    <div style="background-color:teal;padding:10px">
+    <div style="background-color:#ff6f61;padding:10px">
     <h2 style="color:white;text-align:center;">Sleep Detector</h2>
     </div>
     </body>
     """
     st.markdown(html_temp,unsafe_allow_html=True)
     ans=''
-    image_file=st.file_uploader("Upload Image",type=['jpg','png','jpeg'])
-    if image_file is not None:
+    img_file_buffer = st.camera_input("Take a picture")
+
+    if img_file_buffer is not None:
+        image = Image.open(img_file_buffer)
+        st.text("original Image")
+        st.image(image)
+    else:
+     image_file=st.file_uploader("Upload Image",type=['jpg','png','jpeg'])
+     if image_file is not None:
         image=Image.open(image_file)
         st.text("original Image")
         st.image(image)
