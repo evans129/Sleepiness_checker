@@ -72,7 +72,7 @@ def main():
     st.title("Sleepiness Checker")
     html_temp="""
     <body style="background-color:red;">
-    <div style="background-color:teal;padding:10px">
+    <div style="background-color:#ff6f61;padding:10px">
     <h2 style="color:white;text-align:center;">Sleep Detector</h2>
     </div>
     </body>
